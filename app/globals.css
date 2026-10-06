@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@theme {
+    /* Professional light palette: steel blue + slate neutrals */
+    --color-brand: #3a6b8a;
+    --color-brand-deep: #233f52;
+    --color-brand-mid: #8fb0c7;
+    --color-brand-tint: #d9e6ef;
+    --color-brand-pale: #f1f5f9;
+    --color-ink: #1e293b;
+    --color-muted: #5b6b7f;
+    --color-accent: #2563eb; /* professional blue, sparing use */
+    /* aliases used across components */
+    --color-brand-dark: #233f52;
+    --color-brand-light: #d9e6ef;
+    --color-black-light: #f8fafc;
+    --shadow-hard: 6px 6px 0 rgb(35 63 82 / 0.14);
+    --shadow-hard-lg: 10px 10px 0 rgb(35 63 82 / 0.14);
+    --shadow-press: 0 3px 0 #233f52;
+    --shadow-soft: 3px 3px 0 rgb(35 63 82 / 0.12);
+    --animate-marquee: scroll 30s linear infinite;
+}
+@theme inline {
+    --font-display: var(--font-lilita), sans-serif;
+    --font-body: var(--font-dm), sans-serif;
+}
+
+@layer components {
+    .win {
+        @apply mb-4 border-2 bg-brand-pale/80;
+    }
+    .win-hero {
+        @apply bg-white;
+        box-shadow: 8px 8px 0 var(--color-brand-mid);
+    }
+    .win-h {
+        @apply flex items-center gap-3 min-h-10 px-3 py-1.5 border-b-[3px] border-brand-deep bg-brand font-display tracking-wide text-lg text-white;
+    }
+    .win-hero .win-h {
+        @apply min-h-12 text-xl;
+    }
+    .side .win-h {
+        @apply min-h-9 text-base;
+    }
+    .tag {
+        @apply inline-flex items-start leading-tight rounded-lg border-2 border-brand-deep bg-brand-tint px-2.5 py-0.5 text-[13px] font-bold text-ink transition hover:bg-brand hover:text-white;
+    }
+    .tag::before {
+        content: "#";
+        opacity: 0.55;
+        margin-right: 1px;
+    }
+    .btn {
+        @apply inline-block cursor-pointer rounded-full border-2 border-brand-deep bg-white px-5 py-1.5 font-display text-base tracking-wide text-brand shadow-[0_3px_0_var(--color-brand-deep)] transition hover:bg-brand hover:text-white active:translate-y-0.75 active:shadow-none disabled:opacity-60;
+    }
+    .tab {
+        @apply relative z-10 border-[3px] border-dashed border-b-0 border-brand-deep rounded-t-xl px-4 pt-2 pb-1.5 font-display text-base tracking-wide bg-brand-tint text-ink transition hover:bg-white hover:-translate-y-1;
+    }
+    .tab.on {
+        @apply bg-brand-pale -translate-y-1;
+    }
+    .card {
+        @apply flex flex-col items-center gap-3 pb-4 text-center border-[3px] border-brand-deep bg-white/80;
+    }
+    .card-h {
+        @apply w-full px-2 py-1.5 border-b-[3px] border-brand-deep bg-brand font-display text-base tracking-wide text-white;
+    }
+    .polaroid {
+        @apply relative bg-white p-2 pb-1.5 border-2 border-brand-deep;
+        box-shadow: 3px 3px 0
+            color-mix(in oklab, var(--color-brand-deep) 28%, transparent);
+    }
+    .tape {
+        @apply absolute -top-2.5 left-1/2 z-10 h-5 w-20 -translate-x-1/2 -rotate-2 bg-brand-tint/90;
+        background-image: repeating-linear-gradient(
+            90deg,
+            #fff6 0 6px,
+            transparent 6px 12px
+        );
+    }
+    .stamp {
+        @apply inline-grid place-items-center w-22 h-7.75 border-2 border-brand-deep bg-brand text-white font-body font-bold text-[10px] leading-none;
+    }
+    .input {
+        @apply w-full rounded-md border-2 border-brand-deep bg-white px-3 py-2 text-ink placeholder:text-muted/70 focus:outline-3 focus:outline-brand-mid/60;
+    }
+    .info {
+        @apply w-full text-sm;
+    }
+    .info td {
+        @apply py-1.5 align-top;
+    }
+    .info tr + tr td {
+        border-top: 2px dashed
+            color-mix(in oklab, var(--color-brand-deep) 35%, transparent);
+    }
+    .info td:first-child {
+        @apply pr-3 font-body text-xs font-bold uppercase tracking-wider text-brand whitespace-nowrap;
+    }
+}
+
+/* subtle filter: slight desaturation that clears on hover */
+.cold {
+    filter: saturate(0.85) contrast(1.02);
+    transition: filter 0.2s;
+}
+.frame {
+    position: relative;
+    line-height: 0;
+}
+.frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--color-brand);
+    mix-blend-mode: multiply;
+    opacity: 0.1;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+.frame:hover::after {
+    opacity: 0;
+}
+.frame:hover .cold {
+    filter: none;
+}
+
+body {
+    /* light professional veil over the bg gif so text stays readable */
+    background:
+        linear-gradient(
+            rgb(241 245 249 / 0.92),
+            rgb(217 230 239 / 0.88)
+        ),
+        url(/img/bg.gif) center / cover fixed,
+        #e8edf2;
+}
+
+@keyframes scroll {
+    to {
+        transform: translateX(-50%);
+    }
+}
+@keyframes twinkle {
+    50% {
+        opacity: 0.15;
+        transform: scale(0.7) rotate(20deg);
+    }
+}
+@keyframes pulse-dot {
+    50% {
+        opacity: 0.3;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
