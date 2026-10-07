@@ -1,5 +1,5 @@
-const base = "inline-block cursor-pointer rounded-full border-2 border-brand-dark bg-white font-display tracking-wide text-black shadow-press transition hover:bg-brand hover:text-black active:translate-y-0.5 active:shadow-none disabled:opacity-60";
-const sizes = { md: "px-5 py-1.5 text-base", sm: "px-3 py-0.5 text-sm" };
+const base = "inline-flex cursor-pointer items-center gap-2 rounded-md border border-line bg-raise font-semibold tracking-wide text-hi shadow-sm transition hover:border-accent hover:bg-brand-light active:translate-y-px disabled:opacity-60";
+const sizes = { md: "px-4 py-1.5 text-sm", sm: "px-3 py-0.5 text-xs" };
 
 // a <button>, or an <a> when `href` is given
 export default function Button({ href, size = "md", className = "", ...props }) {

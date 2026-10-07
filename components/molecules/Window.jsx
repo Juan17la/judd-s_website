@@ -1,11 +1,15 @@
 import TitleBar from "../atoms/TitleBar";
 
-// A titled panel. `hero` = the big white one, `small` = sidebar size, `last` = no gap below.
-export default function Window({ title, hero, small, center, last, className = "", children, ...rest }) {
-  const look = hero ? "bg-white shadow-hard-lg" : "bg-brand-pale/80 shadow-hard";
+const ICON = { blue: "text-tone-blue", teal: "text-tone-teal", amber: "text-tone-amber", rose: "text-tone-rose", violet: "text-tone-violet", green: "text-tone-green" };
+
+// A titled panel. `tone` = accent colour (blue, teal, amber, rose, violet, green). `hero` = emphasised, `small` = sidebar size, `last` = no gap below, `icon` = a Phosphor icon component.
+export default function Window({ title, icon: Icon, tone = "blue", hero, small, last, className = "", children, ...rest }) {
   return (
-    <article className={`border-3 border-brand-dark rounded-md ${look} ${last ? "" : "mb-4"} ${className}`} {...rest}>
-      <TitleBar size={hero ? "lg" : small ? "sm" : "md"} center={center}><h2><span aria-hidden="true">~ </span>{title}<span aria-hidden="true"> ~</span></h2></TitleBar>
+    <article className={`rounded-xl border border-line shadow-win ${hero ? "bg-surface" : "bg-brand-pale"} ${last ? "" : "mb-4"} ${className}`} {...rest}>
+      <TitleBar tone={tone} size={hero ? "lg" : small ? "sm" : "md"}>
+        {Icon && <Icon size={16} weight="duotone" aria-hidden="true" className={ICON[tone]} />}
+        <h2 className="font-display">{title}</h2>
+      </TitleBar>
       {children}
     </article>
   );

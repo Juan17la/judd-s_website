@@ -1,10 +1,14 @@
+import Prefs from "./Prefs";
+
+// image strength and the fade over it come from --bn-img / --bn-fade (lighter in the light theme)
 export default function Banner() {
   return (
-    <header className="relative flex h-66 items-center justify-center overflow-hidden rounded-t-lg border-3 border-brand-deep bg-brand-pale bg-[url('https://media1.tenor.com/m/85r7Pk6D4DcAAAAd/rozen-maiden-black-angel.gif')] bg-cover bg-center text-center md:h-66 md:border-b-0">
-      {/* soft light overlay so the teto banner stays visible but the title reads professionally */}
-      <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-black/30 via-black/10 to-black-deep/45" />
+    <header className="relative flex h-56 items-center justify-center overflow-hidden rounded-t-xl border border-b-0 border-line bg-brand text-center">
+      <div aria-hidden="true" style={{ opacity: "var(--bn-img)" }} className="absolute inset-0 bg-[url('https://media1.tenor.com/m/85r7Pk6D4DcAAAAd/rozen-maiden-black-angel.gif')] bg-cover bg-center grayscale-30" />
+      <div aria-hidden="true" style={{ opacity: "var(--bn-fade)" }} className="absolute inset-0 bg-linear-to-b from-transparent to-brand-pale" />
+      <Prefs />
       <div className="relative -mt-4 px-4">
-        <h1 className="font-display text-4xl leading-none tracking-wide text-white/80 [text-shadow:-2px_-3px_6px_#3a6b8a] md:text-7xl"><span aria-hidden="true" className="hidden md:inline">- </span>Judd's Webpage<span aria-hidden="true" className="hidden md:inline"> -</span></h1>
+        <h1 className="text-4xl font-bold tracking-tight text-hi [text-shadow:0_2px_14px_var(--color-brand-pale)] md:text-6xl">Judd&apos;s Webpage</h1>
       </div>
     </header>
   );

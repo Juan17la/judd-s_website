@@ -17,10 +17,10 @@ export default async function AdminMessages() {
       <div className="mx-auto max-w-190">
         <Window title="Messages" last>
           {messages.length ? messages.map((m) => (
-            <div key={m.id} className="border-b-2 border-dashed border-brand-dark/40 px-4 py-4 last:border-0">
+            <div key={m.id} className="border-b-2 border-line px-4 py-4 last:border-0">
               <div className="flex flex-wrap items-baseline gap-x-2 text-sm">
                 <b className="font-display text-lg font-normal tracking-wide">{m.name}</b>
-                {m.email && <a href={`mailto:${m.email}`} className="text-black underline">{m.email}</a>}
+                {m.email && <a href={`mailto:${m.email}`} className="text-hi underline">{m.email}</a>}
                 <span className="text-muted">{when(m.created)}</span>
               </div>
               <p className="mt-1 break-words whitespace-pre-wrap">{m.body}</p>

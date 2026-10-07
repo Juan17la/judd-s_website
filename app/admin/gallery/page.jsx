@@ -21,7 +21,7 @@ export default async function AdminGallery() {
           {items.length ? (
             <div className="grid grid-cols-1 items-start gap-x-6 gap-y-8 p-5 pt-7 sm:grid-cols-2">
               {items.map((g, i) => (
-                <Polaroid key={g.id} src={g.src} caption={g.caption} className={i % 2 ? "rotate-1" : "-rotate-1"}><DeleteButton action={deleteGalleryItem} id={g.id} /></Polaroid>
+                <Polaroid key={g.id} src={g.src} caption={g.caption} className={i % 2 ? "" : ""}><DeleteButton action={deleteGalleryItem} id={g.id} /></Polaroid>
               ))}
             </div>
           ) : <p className="py-8 text-center text-muted">Nothing in the gallery yet.</p>}
