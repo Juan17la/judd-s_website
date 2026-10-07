@@ -25,7 +25,8 @@ export default function GalleryForm() {
   }, []);
 
   // React clears the file input after every submit, so the preview goes too (a typed URL stays)
-  useEffect(() => { if (state.ok || state.error) setPreview(state.fields?.url ?? ""); }, [state]);
+  const [seen, setSeen] = useState(state);
+  if (state !== seen) { setSeen(state); if (state.ok || state.error) setPreview(state.fields?.url ?? ""); }
 
   return (
     <form action={action} className="grid gap-3 p-4">
@@ -34,8 +35,8 @@ export default function GalleryForm() {
         <input ref={fileInput} name="file" type="file" accept="image/png,image/jpeg,image/gif,image/webp" onChange={(e) => setPreview(e.target.files[0] ? URL.createObjectURL(e.target.files[0]) : "")} />
         <span className="text-muted">or press Ctrl+V to paste a copied image anywhere on this page</span>
       </div>
-      {preview && <img src={preview} alt="preview" className="max-h-52 w-fit border-2 border-brand-dark" />}
-      <Textarea name="caption" defaultValue={state.fields?.caption} maxLength={300} rows={2} placeholder="silly comment ✧" />
+      {preview && <img src={preview} alt="preview" className="max-h-52 w-fit border border-line" />}
+      <Textarea name="caption" defaultValue={state.fields?.caption} maxLength={300} rows={2} placeholder="Caption" />
       <FormActions pending={pending} label="Add to gallery" pendingLabel="Adding..." message={state.error ?? state.ok} />
     </form>
   );

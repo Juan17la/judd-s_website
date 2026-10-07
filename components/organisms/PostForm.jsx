@@ -1,5 +1,5 @@
 "use client";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useState } from "react";
 import { createPost } from "@/lib/actions";
 import FormActions from "../molecules/FormActions";
 import Textarea from "../atoms/Textarea";
@@ -7,7 +7,9 @@ import Textarea from "../atoms/Textarea";
 export default function PostForm() {
   const [state, action, pending] = useActionState(createPost, {});
   const [length, setLength] = useState(0);
-  useEffect(() => { if (state.ok) setLength(0); }, [state]); // React empties the textarea after a post; the counter follows
+  // React empties the textarea after a post; the counter follows (state adjusted during render, not in an effect)
+  const [seen, setSeen] = useState(state);
+  if (state !== seen) { setSeen(state); if (state.ok) setLength(0); }
   return (
     <form action={action} className="grid gap-3 p-4">
       <Textarea name="body" defaultValue={state.fields?.body} onChange={(e) => setLength(e.target.value.length)} maxLength={500} rows={3} required placeholder="what's happening?!" />
