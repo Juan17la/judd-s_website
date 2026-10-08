@@ -1,7 +1,7 @@
 import Window from "@/components/molecules/Window";
 import DeleteButton from "@/components/molecules/DeleteButton";
 import AdminBar from "@/components/organisms/AdminBar";
-import db from "@/lib/db";
+import { all } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { deleteMessage } from "@/lib/actions";
 
@@ -10,7 +10,7 @@ const when = (t) => new Date(t * 1000).toLocaleString("en-US", { dateStyle: "med
 
 export default async function AdminMessages() {
   await requireAdmin();
-  const messages = db.prepare("SELECT * FROM messages ORDER BY id DESC LIMIT 200").all();
+  const messages = await all("SELECT * FROM messages ORDER BY id DESC LIMIT 200");
   return (
     <>
       <AdminBar />

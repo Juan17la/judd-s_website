@@ -3,7 +3,7 @@ import PostRow from "@/components/molecules/PostRow";
 import DeleteButton from "@/components/molecules/DeleteButton";
 import AdminBar from "@/components/organisms/AdminBar";
 import PostForm from "@/components/organisms/PostForm";
-import db from "@/lib/db";
+import { all } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { deletePost } from "@/lib/actions";
 
@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminPosts() {
   await requireAdmin();
-  const posts = db.prepare("SELECT * FROM posts ORDER BY id DESC LIMIT 200").all();
+  const posts = await all("SELECT * FROM posts ORDER BY id DESC LIMIT 200");
   return (
     <>
       <AdminBar />

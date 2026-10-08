@@ -6,11 +6,15 @@
     "build": "next build",
     "start": "next start",
     "setup-admin": "node scripts/setup-admin.mjs",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "db:local": "wrangler d1 execute judds-website --local --file=schema.sql",
+    "db:remote": "wrangler d1 execute judds-website --remote --file=schema.sql"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.9",
     "@phosphor-icons/react": "^2.1.10",
-    "better-sqlite3": "^12.11.1",
     "next": "^16.3.8",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
@@ -19,6 +23,7 @@
     "@tailwindcss/postcss": "^4.3.3",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.0",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "wrangler": "^4.148.0"
   }
 }

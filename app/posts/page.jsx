@@ -6,7 +6,7 @@ import TwoColumns from "@/components/templates/TwoColumns";
 import AboutCard from "@/components/organisms/AboutCard";
 import BadgesCard from "@/components/organisms/BadgesCard";
 import { prefs, T } from "@/lib/i18n";
-import db from "@/lib/db";
+import { all } from "@/lib/db";
 
 export const metadata = { title: "Posts" };
 export const dynamic = "force-dynamic"; // read the db on every request
@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic"; // read the db on every request
 export default async function Posts() {
   const { lang } = await prefs();
   const t = T[lang];
-  const posts = db.prepare("SELECT * FROM posts ORDER BY id DESC LIMIT 200").all();
+  const posts = await all("SELECT * FROM posts ORDER BY id DESC LIMIT 200");
   return (
     <TwoColumns sidebar={<><AboutCard t={t} /><BadgesCard t={t} /></>}>
       <Window title={t.posts} icon={ChatCircleText} last>

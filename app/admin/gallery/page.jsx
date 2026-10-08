@@ -3,7 +3,7 @@ import Polaroid from "@/components/molecules/Polaroid";
 import DeleteButton from "@/components/molecules/DeleteButton";
 import AdminBar from "@/components/organisms/AdminBar";
 import GalleryForm from "@/components/organisms/GalleryForm";
-import db from "@/lib/db";
+import { all } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { deleteGalleryItem } from "@/lib/actions";
 
@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminGallery() {
   await requireAdmin();
-  const items = db.prepare("SELECT * FROM gallery ORDER BY id DESC LIMIT 200").all();
+  const items = await all("SELECT * FROM gallery ORDER BY id DESC LIMIT 200");
   return (
     <>
       <AdminBar />

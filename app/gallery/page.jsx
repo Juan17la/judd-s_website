@@ -5,8 +5,7 @@ import TwoColumns from "@/components/templates/TwoColumns";
 import AboutCard from "@/components/organisms/AboutCard";
 import BadgesCard from "@/components/organisms/BadgesCard";
 import { prefs, T } from "@/lib/i18n";
-import db from "@/lib/db";
-import gifs from "@/lib/gifs";
+import { all } from "@/lib/db";
 
 export const metadata = { title: "Gallery" };
 export const dynamic = "force-dynamic";
@@ -14,7 +13,7 @@ export const dynamic = "force-dynamic";
 export default async function Gallery() {
   const { lang } = await prefs();
   const t = T[lang];
-  const items = [...db.prepare("SELECT * FROM gallery ORDER BY id DESC LIMIT 200").all(), ...gifs.map((g, id) => ({ ...g, id: `gif${id}` }))];
+  const items = await all("SELECT * FROM gallery ORDER BY id DESC LIMIT 200");
   return (
     <TwoColumns sidebar={<><AboutCard t={t} /><BadgesCard t={t} /></>}>
       <Window title={t.gallery} icon={Images} last>
