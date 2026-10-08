@@ -1,16 +1,13 @@
-import TitleBar from "../atoms/TitleBar";
-
-const ICON = { blue: "text-tone-blue", teal: "text-tone-teal", amber: "text-tone-amber", rose: "text-tone-rose", violet: "text-tone-violet", green: "text-tone-green" };
-
-// A titled panel. `tone` = accent colour (blue, teal, amber, rose, violet, green). `hero` = emphasised, `small` = sidebar size, `last` = no gap below, `icon` = a Phosphor icon component.
-export default function Window({ title, icon: Icon, tone = "blue", hero, small, last, className = "", children, ...rest }) {
+// A section: small label (icon + title, optional `meta` on the right) above a rounded card.
+// `small` = sidebar spacing, `last` = no gap below, `bare` = no card around the children.
+export default function Window({ title, icon: Icon, meta, small, last, bare, className = "", children, ...rest }) {
   return (
-    <article className={`rounded-xl border border-line shadow-win ${hero ? "bg-surface" : "bg-brand-pale"} ${last ? "" : "mb-4"} ${className}`} {...rest}>
-      <TitleBar tone={tone} size={hero ? "lg" : small ? "sm" : "md"}>
-        {Icon && <Icon size={16} weight="duotone" aria-hidden="true" className={ICON[tone]} />}
-        <h2 className="font-display">{title}</h2>
-      </TitleBar>
-      {children}
-    </article>
+    <section className={`reveal ${last ? "" : small ? "mb-4" : "mb-7"} ${className}`} {...rest}>
+      <header className="mb-2 flex items-center justify-between gap-2 px-1 text-xs font-semibold tracking-wider text-muted uppercase">
+        <h2 className="flex items-center gap-1.5">{Icon && <Icon size={14} weight="bold" aria-hidden="true" />}{title}</h2>
+        {meta && <span className="font-medium tracking-normal normal-case">{meta}</span>}
+      </header>
+      {bare ? children : <div className="card overflow-hidden">{children}</div>}
+    </section>
   );
 }

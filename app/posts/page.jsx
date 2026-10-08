@@ -17,7 +17,7 @@ export default async function Posts() {
   const posts = db.prepare("SELECT * FROM posts ORDER BY id DESC LIMIT 200").all();
   return (
     <TwoColumns sidebar={<><AboutCard t={t} /><BadgesCard t={t} /></>}>
-      <Window title={t.posts} icon={ChatCircleText} tone="teal" last>
+      <Window title={t.posts} icon={ChatCircleText} last>
         <div className="relative h-24 bg-linear-to-b from-raise to-brand">
           
           <Avatar className="absolute -bottom-9 left-4 size-20 border-2 border-surface text-4xl" />

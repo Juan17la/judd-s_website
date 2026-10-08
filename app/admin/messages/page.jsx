@@ -17,7 +17,7 @@ export default async function AdminMessages() {
       <div className="mx-auto max-w-190">
         <Window title="Messages" last>
           {messages.length ? messages.map((m) => (
-            <div key={m.id} className="border-b-2 border-line px-4 py-4 last:border-0">
+            <div key={m.id} className="border-b border-line px-4 py-4 last:border-0">
               <div className="flex flex-wrap items-baseline gap-x-2 text-sm">
                 <b className="font-display text-lg font-normal tracking-wide">{m.name}</b>
                 {m.email && <a href={`mailto:${m.email}`} className="text-hi underline">{m.email}</a>}

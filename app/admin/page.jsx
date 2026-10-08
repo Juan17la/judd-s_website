@@ -18,7 +18,7 @@ export default async function Dashboard() {
         <Window title="Backstage" icon={Gear} last>
           <div className="grid gap-4 p-4 sm:grid-cols-3">
             {cards.map(([href, label, n, hint]) => (
-              <Link key={href} href={href} className="block border border-line bg-surface p-4 transition hover:border-accent">
+              <Link key={href} href={href} className="card lift block p-4">
                 <span className="block font-display text-4xl text-hi">{n}</span>
                 <span className="block font-display text-xl">{label}</span>
                 <span className="block text-sm text-muted">{hint}</span>

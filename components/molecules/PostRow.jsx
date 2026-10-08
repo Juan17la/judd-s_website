@@ -5,7 +5,7 @@ const when = (t, lang) => new Date(t * 1000).toLocaleString(lang, { dateStyle: "
 // one post, tweet-style. `children` = extra controls (the admin delete button).
 export default function PostRow({ post, via = "via web", lang = "en", children }) {
   return (
-    <div className="grid grid-cols-[44px_1fr] gap-3 border-b-2 border-line px-4 py-4 last:border-0 sm:grid-cols-[52px_1fr]">
+    <div className="grid grid-cols-[44px_1fr] gap-3 border-b border-line px-4 py-4 last:border-0 sm:grid-cols-[52px_1fr]">
       <Avatar className="size-11 text-xl sm:size-13" />
       <div className="min-w-0">
         <div className="flex flex-wrap items-baseline gap-x-2 text-sm">

@@ -4,7 +4,7 @@ import Polaroid from "../molecules/Polaroid";
 
 export default function AboutCard({ t }) {
   return (
-    <Window title={t.aboutMe} small center>
+    <Window title={t.aboutMe} small>
       <div className="p-3">
         <Polaroid src="https://media1.tenor.com/m/dNLdIIk6QdIAAAAC/gawr-gura-gura.gif" className="mb-3" />
         <InfoTable rows={t.rows} />

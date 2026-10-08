@@ -1,10 +1,11 @@
-import TagList from "./TagList";
+import TechChip from "../atoms/TechChip";
 
-export default function TechBox({ title, items, className = "" }) {
+// one row of the stack card: category on the left, logo chips on the right
+export default function TechBox({ title, items }) {
   return (
-    <div className={`rounded-lg border border-line bg-surface p-3 ${className}`}>
-      <h3 className="mb-2 border-b border-line pb-1.5 text-sm font-semibold tracking-wide text-hi">{title}</h3>
-      <TagList items={items} className="gap-2" />
+    <div className="grid gap-2 px-4 py-3.5 sm:grid-cols-[12rem_1fr] sm:items-center">
+      <h3 className="text-sm font-medium text-muted">{title}</h3>
+      <div className="flex flex-wrap gap-2">{items.map((n) => <TechChip key={n} name={n} />)}</div>
     </div>
   );
 }

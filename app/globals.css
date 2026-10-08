@@ -1,62 +1,83 @@
 @import "tailwindcss";
 
 @theme {
-    /* Dark graphite palette; one restrained steel-blue accent */
-    --color-brand: #2b2f34;       /* title bars */
-    --color-brand-pale: #1d2024;  /* window bodies */
-    --color-brand-light: #343a40; /* tags, idle tabs */
-    --color-brand-mid: #5c6670;
-    --color-surface: #25292e;     /* cards, inputs */
-    --color-raise: #30353b;       /* hover surface */
-    --color-line: #3b4148;        /* borders */
-    --color-ink: #c9cfd6;
-    --color-hi: #f1f3f5;          /* headings */
-    --color-muted: #8b95a1;
-    --color-accent: #7aa2c4;
-    --color-tone-blue: #6aa3d8;
-    --color-tone-teal: #4fb3a9;
-    --color-tone-amber: #d9a441;
-    --color-tone-rose: #d9738a;
-    --color-tone-violet: #9b8bd9;
-    --color-tone-green: #6fbf7f;
-    --shadow-win: 0 8px 24px rgb(0 0 0 / 0.35), 0 1px 0 rgb(255 255 255 / 0.04) inset;
+    /* WhiteSur-ish: neutral greys, one soft blue for links/focus/active */
+    --color-brand: #2c2c2e;       /* tab group, toolbars */
+    --color-brand-pale: #1c1c1e;  /* main panel, inputs */
+    --color-brand-light: #3a3a3c; /* chips, icon tiles */
+    --color-brand-mid: #636366;
+    --color-surface: #242426;     /* cards */
+    --color-raise: #2f2f31;       /* hover surface */
+    --color-line: #38383a;        /* hairlines */
+    --color-ink: #d1d1d6;
+    --color-hi: #f5f5f7;          /* headings */
+    --color-muted: #98989d;
+    --color-accent: #5ea0ff;
+    --color-ok: #34c759;
 }
 @theme inline {
     --font-display: var(--font-inter), sans-serif;
     --font-body: var(--font-inter), sans-serif;
 }
 
+:root {
+    --page: #161618;
+    --glow: 94 160 255;
+    --shadow-card: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 8px 24px rgb(0 0 0 / 0.3);
+    --shadow-hover: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 14px 32px rgb(0 0 0 / 0.4);
+    color-scheme: dark;
+}
 [data-theme="light"] {
-    --color-brand: #e3e8ed;
-    --color-brand-pale: #f3f5f7;
-    --color-brand-light: #e1e6eb;
-    --color-brand-mid: #8a949e;
+    --color-brand: #e5e5ea;
+    --color-brand-pale: #f2f2f5;
+    --color-brand-light: #ececf0;
+    --color-brand-mid: #aeaeb2;
     --color-surface: #ffffff;
-    --color-raise: #eef1f4;
-    --color-line: #cfd5db;
-    --color-ink: #3a424a;
-    --color-hi: #14181c;
-    --color-muted: #66707a;
-    --color-accent: #2f6b9a;
-    --shadow-win: 0 6px 18px rgb(20 30 40 / 0.1), 0 1px 0 rgb(255 255 255 / 0.6) inset;
-    --color-tone-blue: #2f6fb0;
-    --color-tone-teal: #1f8a80;
-    --color-tone-amber: #b57a10;
-    --color-tone-rose: #c0476a;
-    --color-tone-violet: #6c58c0;
-    --color-tone-green: #2f8f4a;
-    --bn-img: 1;
-    --bn-fade: 0;
-    --page: #e9edf1;
-    --veil: 243 245 247;
+    --color-raise: #f5f5f7;
+    --color-line: #d2d2d7;
+    --color-ink: #3a3a3c;
+    --color-hi: #1d1d1f;
+    --color-muted: #6e6e73;
+    --color-accent: #3d8bfd;
+    --page: #ebedf0;
+    --glow: 61 139 253;
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 6px 20px rgb(0 0 0 / 0.06);
+    --shadow-hover: 0 2px 4px rgb(0 0 0 / 0.06), 0 12px 28px rgb(0 0 0 / 0.1);
     color-scheme: light;
 }
-:root { --bn-img: 0.8; --bn-fade: 0.7; --page: #121417; --veil: 18 20 23; color-scheme: dark; }
 
-.font-display { font-weight: 600; }
 body {
-    background: linear-gradient(rgb(var(--veil) / 0.95), rgb(var(--veil) / 0.97)), url(/img/bg.gif) center / cover fixed, var(--page);
+    background: radial-gradient(60rem 40rem at 0% -10%, rgb(var(--glow) / 0.1), transparent 60%),
+        radial-gradient(50rem 36rem at 100% 0%, rgb(var(--glow) / 0.06), transparent 60%), var(--page);
+    background-attachment: fixed;
+    transition: background-color 0.2s, color 0.2s;
 }
+
+/* a WhiteSur-style card: rounded, translucent, hairline, soft shadow */
+.card {
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-line) 70%, transparent);
+    box-shadow: var(--shadow-card);
+}
+.lift { transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease; }
+.lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+/* sections ease in as they scroll into view (once on load where view timelines aren't supported) */
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+.reveal { animation: rise 0.5s ease-out both; }
+@supports (animation-timeline: view()) {
+    .reveal { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 30%; }
+}
+
+@keyframes pop { from { opacity: 0; transform: scale(0.98); } }
+@keyframes fade { from { opacity: 0; } }
+dialog[open] { animation: pop 0.22s ease-out; }
+dialog[open]::backdrop { animation: fade 0.22s ease-out; }
+
+/* black logos (Next.js, GitHub...) turned white on the dark theme */
+:root:not([data-theme="light"]) .invert-dark { filter: invert(1); }
+
 @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
 }

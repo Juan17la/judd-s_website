@@ -1,5 +1,4 @@
 import { Inter, JetBrains_Mono } from "next/font/google";
-import Background from "@/components/organisms/Background";
 import Banner from "@/components/organisms/Banner";
 import Nav from "@/components/organisms/Nav";
 import { prefs, T } from "@/lib/i18n";
@@ -17,11 +16,10 @@ export default async function RootLayout({ children }) {
   return (
     <html lang={lang} data-theme={theme} className={`${inter.variable} ${mono.variable}`}>
       <body className="font-body leading-relaxed text-ink selection:bg-accent selection:text-brand-pale">
-        <Background />
-        <div className="mx-auto w-[92vw] max-w-300 py-4 md:w-4/5 md:py-8">
+        <div className="mx-auto w-[92vw] max-w-300 py-4 lg:w-4/5 lg:py-8">
           <Banner />
           <Nav pages={[t.home, t.posts, t.gallery]} />
-          <main className="rounded-b-xl rounded-tr-xl border border-line bg-brand-pale/90 p-3 shadow-win backdrop-blur-sm md:p-4">{children}</main>
+          <main className="rounded-b-2xl bg-brand-pale p-4 shadow-[var(--shadow-card)] md:p-6">{children}</main>
           <Footer text={t.footer} />
         </div>
       </body>
